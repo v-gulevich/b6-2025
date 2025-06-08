@@ -6,7 +6,10 @@
   --accent-color: #0066CC;
 }
 
-@theme inline {
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent-color: #0066CC;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -23,11 +26,6 @@ body {
 * {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-}
-
-html, body {
-  /* overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch; */
 }
 
 body::before {
