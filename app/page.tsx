@@ -1,11 +1,19 @@
 import RansomText from '@/components/RansomText';
 import ProceduralCorkboard from "@/components/ProceduralCorkboard";
+import PostItNote from '@/components/PostItNote';
 
 export default function Home() {
   return (
     <main>
       <ProceduralCorkboard>
-        <RansomText>Где деньги, Лебовски? </RansomText>
+        <PostItNote
+  color="blue"
+  rotation={5}
+  style={{ top: '25%', left: '15%' }}
+>
+  <RansomText>Где деньги, Лебовски? </RansomText>
+</PostItNote>
+        
       </ProceduralCorkboard>
     </main>
   );
