@@ -1,0 +1,81 @@
+/*
+ * --- The Main Board Container ---
+ * This is the core element that holds the cork texture and the frame.
+ */
+.board {
+  position: relative; /* Essential for positioning child elements like the light and content */
+  width: 100%;
+  min-height: 100vh;
+  padding: 4rem; /* Gives space for notes near the edges */
+  margin: 0 auto;
+
+  /*
+   * The background texture is applied via inline styles in the component.
+   * This allows us to use either a static image or a dynamic procedural texture.
+   * The background-color here acts as a fallback and is visible during loading.
+  */
+  background-color: #d2a679; /* A nice, warm cork base color */
+  
+  /* 
+   * A realistic wooden frame created with a thick border and multiple shadows.
+  */
+  border: 18px solid #6b4f3a; /* Dark, solid wood color */
+  border-radius: 8px; /* Slightly rounded corners for the frame */
+  box-shadow: 
+    /* Outer shadow to lift the board off the page */
+    0 4px 10px rgba(0, 0, 0, 0.5), 
+    /* Inner shadow to give the frame depth, making the cork look recessed */
+    inset 0 0 30px 15px rgba(0,0,0,0.3);
+
+  /* Hides any elements (like rotated notes) that might poke outside the frame */
+  overflow: hidden; 
+}
+
+/*
+ * --- Subtle Lighting Overlay ---
+ * This adds a radial gradient to simulate a light source from above,
+ * making the board feel less flat and more three-dimensional.
+ */
+.light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% -20%, 
+    rgba(255, 255, 255, 0.15), 
+    rgba(255, 255, 255, 0) 60%
+  );
+  /* CRITICAL: Allows clicks to pass through the overlay to the notes below */
+  pointer-events: none;
+}
+
+/*
+ * --- Content Wrapper ---
+ * This wrapper ensures that all children (notes, pins, etc.) are
+ * positioned correctly and appear above the lighting overlay.
+ */
+.content {
+  position: relative;
+  /* Ensures content is above the .light overlay (which has a default z-index) */
+  z-index: 2; 
+}
+
+/*
+ * --- Loading Indicator (for Procedural Generation) ---
+ * A simple text indicator that shows while the procedural cork texture
+ * is being generated on the client's machine.
+ */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* The classic centering trick */
+  font-family: var(--font-inter, sans-serif); /* Use a standard font for readability */
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  /* A very high z-index to ensure it's on top of everything */
+  z-index: 100;
+}
