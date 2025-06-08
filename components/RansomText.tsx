@@ -55,13 +55,19 @@ function getContrastColor(bg: string): string {
   return '#000';
 }
 
-export interface RansomTextProps { children: string }
+export interface RansomTextProps {
+  children: string;
+  fontSize?: number; // base font size in px
+  sizeDelta?: number; // random delta in px
+}
 
 /**
  * RansomText: uses useMemo to generate stable, varied random styles per letter
  */
-const RansomText: React.FC<RansomTextProps> = ({ children }) => {
+const RansomText: React.FC<RansomTextProps> = ({ children, fontSize = 26, sizeDelta = 2 }) => {
   const letters = Array.from(children);
+  const minSize = fontSize - sizeDelta;
+  const maxSize = fontSize + sizeDelta;
 
   const styles = useMemo(() => letters.map(char => {
     if (char === ' ') return null;
@@ -71,14 +77,14 @@ const RansomText: React.FC<RansomTextProps> = ({ children }) => {
     const skewX = randInRange(SKEW_RANGE).toFixed(1);
     const skewY = randInRange(SKEW_RANGE).toFixed(1);
     const scale = randInRange(SCALE_RANGE).toFixed(2);
-    const fontSize = Math.floor(randInRange(SIZE_RANGE));
+    const letterFontSize = Math.floor(randInRange([minSize, maxSize]));
     return {
       fontFamily: FONT_FAMILIES[Math.floor(Math.random() * FONT_FAMILIES.length)],
       color,
       background: bg,
       padding: '4px 6px',
       transform: `rotate(${rotation}deg) skew(${skewX}deg,${skewY}deg) scale(${scale})`,
-      fontSize: `${fontSize}px`,
+      fontSize: `${letterFontSize}px`,
       margin: '0 2px',
       lineHeight: 1,
       boxShadow: '2px 2px 4px rgba(0,0,0,0.2)',
@@ -86,7 +92,7 @@ const RansomText: React.FC<RansomTextProps> = ({ children }) => {
       border: '1px solid rgba(0,0,0,0.1)',
       display: 'inline-block' as const,
     };
-  }), [children]);
+  }), [children, fontSize, sizeDelta]);
 
   return (
     <div style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}>

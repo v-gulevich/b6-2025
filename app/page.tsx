@@ -11,7 +11,7 @@ export default function Home() {
   rotation={5}
   style={{ top: '25%', left: '15%' }}
 >
-  <RansomText>Где деньги, Лебовски? </RansomText>
+  <RansomText fontSize={18}>Где деньги, Лебовски? </RansomText>
 </PostItNote>
         
       </ProceduralCorkboard>
