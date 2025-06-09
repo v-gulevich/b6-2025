@@ -4,8 +4,8 @@
      on its parent container (the corkboard) using top/left/right/bottom. */
   position: absolute;
 
-  width: 250px;
-  height: 250px;
+  width: calc(250px / 2);
+  height: calc(250px / 2);
   
   /* Give space for the content. Top padding is larger to make room for the pin. */
   padding: 25px;

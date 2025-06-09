@@ -38,8 +38,7 @@ const BACKGROUNDS: string[] = [
 const ROT_RANGE = [-10, 10];
 const SKEW_RANGE = [-5, 5];
 const SCALE_RANGE = [0.95, 1.05];
-const SIZE_RANGE = [24, 28];
-const SPACE_WIDTH_EM = 1.5;
+const SPACE_WIDTH_EM = 0.5;
 
 function randInRange([min, max]: number[]): number {
   return Math.random() * (max - min) + min;

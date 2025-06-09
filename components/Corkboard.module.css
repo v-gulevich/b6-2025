@@ -6,7 +6,7 @@
   position: relative; /* Essential for positioning child elements like the light and content */
   width: 100%;
   min-height: 100vh;
-  padding: 4rem; /* Gives space for notes near the edges */
+  padding: 1rem; /* Gives space for notes near the edges */
   margin: 0 auto;
 
   /*
@@ -19,8 +19,8 @@
   /* 
    * A realistic wooden frame created with a thick border and multiple shadows.
   */
-  border: 18px solid #6b4f3a; /* Dark, solid wood color */
-  border-radius: 8px; /* Slightly rounded corners for the frame */
+  /* border: 18px solid #6b4f3a; Dark, solid wood color */
+  /* border-radius: 8px; Slightly rounded corners for the frame */
   box-shadow: 
     /* Outer shadow to lift the board off the page */
     0 4px 10px rgba(0, 0, 0, 0.5), 

@@ -17,7 +17,6 @@ const ProceduralCorkboard: React.FC<ProceduralCorkboardProps> = ({ children }) =
   const boardStyle: React.CSSProperties = {
     // Dynamically set the background image
     backgroundImage: isLoading ? 'none' : `url(${backgroundUrl})`,
-    // By generating a smaller, tileable texture, performance is much better.
     backgroundSize: '400px', // The size you want the tile to appear on screen
     backgroundRepeat: 'repeat',
   };
