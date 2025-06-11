@@ -83,7 +83,7 @@
   body {
     @apply bg-background text-foreground;
     /* This is the key change to prevent scrolling on all devices */
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 }
 

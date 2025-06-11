@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import BackgroundLights from "@/components/background-lights";
 import MindBubble from "@/components/mind-bubble";
 import PageTitle from "@/components/page-title";
+import Link from "next/link";
 
 // --- Data Types and Constants ---
 interface BubbleData {
@@ -11,6 +12,7 @@ interface BubbleData {
   color: string;
   size: "sm" | "md" | "lg";
   bgImage?: string;
+  link?: string; // Add link property
 }
 
 interface PositionedBubble extends BubbleData {
@@ -25,18 +27,18 @@ interface PositionedBubble extends BubbleData {
 
 function getRelativeBubbleSizes(screenWidth: number, screenHeight: number) {
   const baseDimension = Math.min(screenWidth, screenHeight);
-  
+
   const scaleFactor = 0.33;
-  const minSizeMd = 120;
-  const maxSizeMd = 220;
+  const minSizeMd = 100;
+  const maxSizeMd = 200;
 
   let baseSize = baseDimension * scaleFactor;
   baseSize = Math.max(minSizeMd, Math.min(baseSize, maxSizeMd));
 
   return {
-    sm: baseSize * 0.8,
+    sm: baseSize * 0.9,
     md: baseSize,
-    lg: baseSize * 1.25,
+    lg: baseSize * 1.1,
   };
 }
 
@@ -49,10 +51,10 @@ function checkOverlap(bubble1: PositionedBubble, bubble2: PositionedBubble, spac
 }
 
 /**
- * Packs bubbles with a primary spiral method and a random-placement fallback
- * to guarantee all bubbles are rendered.
+ * Places bubbles by finding the most open space on the screen,
+ * resulting in a more even, scattered distribution.
  */
-function packBubblesRobust(
+function packBubblesEvenly(
   bubbles: BubbleData[],
   screenWidth: number,
   screenHeight: number,
@@ -64,57 +66,71 @@ function packBubblesRobust(
 ): PositionedBubble[] {
   const { spacing = 0, exclusionZone = { top: 0 }, sizes } = options;
   const topMargin = exclusionZone.top || 0;
-  
+
   const placedBubbles: PositionedBubble[] = [];
+  // Sorting by size (largest first) is a good heuristic for packing
   const sortedBubbles = [...bubbles].sort((a, b) => sizes[b.size] - sizes[a.size]);
 
-  const placementAreaY = topMargin;
-  const placementAreaHeight = screenHeight - topMargin;
-  const placementCenterX = screenWidth / 2;
-  const placementCenterY = placementAreaY + placementAreaHeight / 2;
-
-  sortedBubbles.forEach((bubble, index) => {
+  // --- Placement Logic ---
+  sortedBubbles.forEach((bubble) => {
     const size = sizes[bubble.size];
     const radius = size / 2;
-    let placed = false;
+    let bestPosition: { x: number; y: number } | null = null;
+    let maxMinDistance = -1; // We want to maximize the minimum distance to other bubbles
 
-    // --- Primary Strategy: Spiral Placement ---
-    if (index === 0) {
-      placedBubbles.push({ ...bubble, radius, x: placementCenterX - radius, y: placementCenterY - radius, width: size, height: size });
-      placed = true;
-    } else {
-      let angle = Math.random() * 2 * Math.PI;
-      let distanceFromCenter = placedBubbles[0].radius; 
-      const spiralTightness = 0.5;
+    // For the very first bubble, place it somewhat centrally but with some randomness.
+    if (placedBubbles.length === 0) {
+      const x = screenWidth * 0.5 - radius + (Math.random() - 0.5) * 100;
+      const y = (screenHeight + topMargin) * 0.5 - radius + (Math.random() - 0.5) * 100;
+      placedBubbles.push({ ...bubble, radius, x, y, width: size, height: size });
+      return; // Go to the next bubble
+    }
 
-      while (distanceFromCenter < Math.max(screenWidth, screenHeight)) {
-        const candidateCenterX = placementCenterX + Math.cos(angle) * distanceFromCenter;
-        const candidateCenterY = placementCenterY + Math.sin(angle) * distanceFromCenter;
-        const candidateBubble: PositionedBubble = { ...bubble, radius, x: candidateCenterX - radius, y: candidateCenterY - radius, width: size, height: size };
+    // --- Strategy: Find the most open spot ---
+    const CANDIDATE_ATTEMPTS = 200; // More attempts lead to better but slower placement
+    for (let i = 0; i < CANDIDATE_ATTEMPTS; i++) {
+      // Generate a random candidate position within the screen bounds
+      const candidateX = Math.random() * (screenWidth - size);
+      const candidateY = topMargin + (Math.random() * (screenHeight - topMargin - size));
+      const candidateBubble: PositionedBubble = { ...bubble, radius, x: candidateX, y: candidateY, width: size, height: size };
 
-        let hasCollision = false;
-        for (const placedBubble of placedBubbles) {
-          if (checkOverlap(candidateBubble, placedBubble, spacing)) {
-            hasCollision = true;
-            break;
-          }
-        }
-
-        if (!hasCollision && candidateBubble.x > 0 && candidateBubble.x + size < screenWidth && candidateBubble.y > topMargin && candidateBubble.y + size < screenHeight) {
-          placedBubbles.push(candidateBubble);
-          placed = true;
+      // 1. Check for collision with any existing bubble
+      let hasCollision = false;
+      for (const placedBubble of placedBubbles) {
+        if (checkOverlap(candidateBubble, placedBubble, spacing)) {
+          hasCollision = true;
           break;
         }
+      }
+      if (hasCollision) {
+        continue; // This candidate is invalid, try another one
+      }
 
-        angle += 0.3;
-        distanceFromCenter += spiralTightness;
+      // 2. This is a valid spot. Now, score it by its distance to the nearest neighbor.
+      let minDistanceToAnyPlaced = Infinity;
+      for (const placedBubble of placedBubbles) {
+        const dx = (candidateBubble.x + radius) - (placedBubble.x + placedBubble.radius);
+        const dy = (candidateBubble.y + radius) - (placedBubble.y + placedBubble.radius);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < minDistanceToAnyPlaced) {
+          minDistanceToAnyPlaced = distance;
+        }
+      }
+
+      // 3. If this candidate is in a more "open" area, it's our new best
+      if (minDistanceToAnyPlaced > maxMinDistance) {
+        maxMinDistance = minDistanceToAnyPlaced;
+        bestPosition = { x: candidateX, y: candidateY };
       }
     }
 
-    // --- Fallback Strategy: Random Placement ---
-    if (!placed) {
-      console.warn(`Spiral placement failed for "${bubble.text}". Falling back to random placement.`);
-      for (let i = 0; i < 500; i++) { // Try up to 500 times
+    // If we found a good position, use it.
+    if (bestPosition) {
+      placedBubbles.push({ ...bubble, radius, x: bestPosition.x, y: bestPosition.y, width: size, height: size });
+    } else {
+      // --- Fallback Strategy: Just find the first available random spot ---
+      console.warn(`Could not find an ideal open spot for "${bubble.text}". Falling back to first available.`);
+      for (let i = 0; i < 1000; i++) { // Try up to 1000 times
         const x = Math.random() * (screenWidth - size);
         const y = topMargin + (Math.random() * (screenHeight - topMargin - size));
         const fallbackCandidate: PositionedBubble = { ...bubble, radius, x, y, width: size, height: size };
@@ -126,11 +142,9 @@ function packBubblesRobust(
             break;
           }
         }
-
         if (!hasCollision) {
           placedBubbles.push(fallbackCandidate);
-          placed = true;
-          break;
+          return; // Exit the forEach loop for this bubble
         }
       }
     }
@@ -147,14 +161,14 @@ export default function Home() {
   const titleRef = useRef<HTMLDivElement>(null);
 
   const bubbleContents: BubbleData[] = [
-    { text: "Creative", color: "from-pink-300 via-purple-200 to-blue-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg' },
-    { text: "Mind", color: "from-blue-300 via-purple-300 to-pink-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md' },
-    { text: "Ideas", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm' },
-    { text: "Inspire", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md' },
-    { text: "Imagine", color: "from-blue-200 via-cyan-300 to-teal-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg' },
-    { text: "Create", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm' },
-    { text: "Dream", color: "from-fuchsia-300 via-pink-200 to-rose-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md' },
-    { text: "Explore", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg' },
+    { text: "Сир и мэса", color: "from-pink-300 via-purple-200 to-blue-300", size: 'lg', link: "/sir-mes" },
+    { text: "Джуниор дня", color: "from-blue-300 via-purple-300 to-pink-300", size: 'md', link: "/junior-of-the-day" },
+    { text: "План-чек", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm', link: "/plan-check" },
+    { text: "Состав профиля", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/members" },
+    { text: "Подвиг героев", color: "from-blue-200 via-cyan-300 to-teal-300", size: 'lg', link: "/heroes" },
+    { text: "Речёвка и песня", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm', link: "/songs" },
+    { text: "Модульные проекты", color: "from-fuchsia-300 via-pink-200 to-rose-300", size: 'md', link: "/projects" },
+    { text: "Мы новое поколение", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/new-gen" },
   ];
 
   useEffect(() => {
@@ -163,14 +177,14 @@ export default function Home() {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         mainContainerRef.current.style.height = `${viewportHeight}px`;
-        
+
         const titleHeight = titleRef.current.offsetHeight;
         const topExclusionZone = titleHeight + 10;
 
         const currentBubbleSizes = getRelativeBubbleSizes(viewportWidth, viewportHeight);
         const overlapAmount = currentBubbleSizes.md * 0; 
 
-        const positions = packBubblesRobust(bubbleContents, viewportWidth, viewportHeight, {
+        const positions = packBubblesEvenly(bubbleContents, viewportWidth, viewportHeight, {
           exclusionZone: { top: topExclusionZone },
           spacing: overlapAmount,
           sizes: currentBubbleSizes,
@@ -179,14 +193,23 @@ export default function Home() {
       }
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+    // Debounce resize handler for performance
+    let resizeTimer: NodeJS.Timeout;
+    const debouncedHandleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => handleResize(), 100);
+    };
 
-    return () => window.removeEventListener("resize", handleResize);
+
+    handleResize();
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return () => window.removeEventListener("resize", debouncedHandleResize);
+
   }, []);
 
   return (
-    <div ref={mainContainerRef} className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 relative w-full overflow-hidden">
+    <div ref={mainContainerRef} className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 relative w-full">
       <BackgroundLights />
       <div className="relative z-10 flex flex-col items-center pointer-events-none">
         <div ref={titleRef} className="pointer-events-auto">
@@ -194,18 +217,24 @@ export default function Home() {
         </div>
       </div>
       <div className="fixed inset-0 pointer-events-none z-0">
-        {positionedBubbles.map((bubble, index) => (
-          <div key={index} className="absolute" style={{ left: `${bubble.x}px`, top: `${bubble.y}px` }}>
-            <MindBubble
-              gradientColors={bubble.color}
-              sizePx={bubble.width} // Pass the calculated size in pixels
-              animationDelay={index * 0.2}
-              backgroundImage={bubble.bgImage}
-            >
-              <p className="font-bold text-center text-gray-800 drop-shadow-sm">{bubble.text}</p>
-            </MindBubble>
-          </div>
-        ))}
+        {positionedBubbles.map((bubble, index) => {
+          // Use the custom link if provided, otherwise fallback to the default bubble page
+          const bubblePage = bubble.link || `/bubble-${index + 1}`;
+          return (
+            <div key={index} className="absolute" style={{ left: `${bubble.x}px`, top: `${bubble.y}px` }}>
+              <Link href={bubblePage} className="pointer-events-auto block focus:outline-none" tabIndex={0} aria-label={`Open page for bubble ${index + 1}`}>
+                <MindBubble
+                  gradientColors={bubble.color}
+                  sizePx={bubble.width}
+                  animationDelay={index * 0.1}
+                  backgroundImage={bubble.bgImage}
+                >
+                  <p className="font-bold text-center text-gray-800 drop-shadow-sm">{bubble.text}</p>
+                </MindBubble>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
