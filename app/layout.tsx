@@ -4,16 +4,6 @@ import "./globals.css";
 import Head from "next/head";
 import ForcePortrait from "../components/ForcePortrait";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Board",
   authors: [
@@ -40,7 +30,7 @@ export default function RootLayout({
         <meta name="msapplication-orientation" content="portrait" />
       </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`antialiased`}
       >
         <ForcePortrait />
         {children}
