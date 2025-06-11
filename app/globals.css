@@ -81,8 +81,9 @@
   }
 
   body {
-    font-family: Arial, Helvetica, sans-serif; /* You can keep this or remove if using font variables */
     @apply bg-background text-foreground;
+    /* This is the key change to prevent scrolling on all devices */
+    overflow: hidden;
   }
 }
 
