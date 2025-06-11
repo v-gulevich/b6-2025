@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import BackgroundLights from "@/components/background-lights";
 import MindBubble from "@/components/mind-bubble";
 import PageTitle from "@/components/page-title";
+import Link from "next/link";
 
 // --- Data Types and Constants ---
 interface BubbleData {
@@ -11,6 +12,7 @@ interface BubbleData {
   color: string;
   size: "sm" | "md" | "lg";
   bgImage?: string;
+  link?: string; // Add link property
 }
 
 interface PositionedBubble extends BubbleData {
@@ -159,14 +161,14 @@ export default function Home() {
   const titleRef = useRef<HTMLDivElement>(null);
 
   const bubbleContents: BubbleData[] = [
-    { text: "1", color: "from-pink-300 via-purple-200 to-blue-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg' },
-    { text: "2", color: "from-blue-300 via-purple-300 to-pink-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md' },
-    { text: "3", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm' },
-    { text: "4", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md' },
-    { text: "5", color: "from-blue-200 via-cyan-300 to-teal-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg' },
-    { text: "6", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm' },
-    { text: "7", color: "from-fuchsia-300 via-pink-200 to-rose-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md' },
-    { text: "8", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg' },
+    { text: "1", color: "from-pink-300 via-purple-200 to-blue-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg', link: "/bubble-1" },
+    { text: "2", color: "from-blue-300 via-purple-300 to-pink-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md', link: "/bubble-2" },
+    { text: "3", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm', link: "/bubble-3" },
+    { text: "4", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/bubble-4" },
+    { text: "5", color: "from-blue-200 via-cyan-300 to-teal-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg', link: "/bubble-5" },
+    { text: "6", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm', link: "/bubble-6" },
+    { text: "7", color: "from-fuchsia-300 via-pink-200 to-rose-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md', link: "/bubble-7" },
+    { text: "8", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/bubble-8" },
   ];
 
   useEffect(() => {
@@ -215,18 +217,24 @@ export default function Home() {
         </div>
       </div>
       <div className="fixed inset-0 pointer-events-none z-0">
-        {positionedBubbles.map((bubble, index) => (
-          <div key={index} className="absolute" style={{ left: `${bubble.x}px`, top: `${bubble.y}px` }}>
-            <MindBubble
-              gradientColors={bubble.color}
-              sizePx={bubble.width} // Pass the calculated size in pixels
-              animationDelay={index * 0.1} // Slightly faster animation delay
-              backgroundImage={bubble.bgImage}
-            >
-              <p className="font-bold text-center text-gray-800 drop-shadow-sm">{bubble.text}</p>
-            </MindBubble>
-          </div>
-        ))}
+        {positionedBubbles.map((bubble, index) => {
+          // Use the custom link if provided, otherwise fallback to the default bubble page
+          const bubblePage = bubble.link || `/bubble-${index + 1}`;
+          return (
+            <div key={index} className="absolute" style={{ left: `${bubble.x}px`, top: `${bubble.y}px` }}>
+              <Link href={bubblePage} className="pointer-events-auto block focus:outline-none" tabIndex={0} aria-label={`Open page for bubble ${index + 1}`}>
+                <MindBubble
+                  gradientColors={bubble.color}
+                  sizePx={bubble.width}
+                  animationDelay={index * 0.1}
+                  backgroundImage={bubble.bgImage}
+                >
+                  <p className="font-bold text-center text-gray-800 drop-shadow-sm">{bubble.text}</p>
+                </MindBubble>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
