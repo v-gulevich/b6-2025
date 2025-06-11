@@ -29,16 +29,16 @@ function getRelativeBubbleSizes(screenWidth: number, screenHeight: number) {
   const baseDimension = Math.min(screenWidth, screenHeight);
 
   const scaleFactor = 0.33;
-  const minSizeMd = 120;
-  const maxSizeMd = 220;
+  const minSizeMd = 100;
+  const maxSizeMd = 200;
 
   let baseSize = baseDimension * scaleFactor;
   baseSize = Math.max(minSizeMd, Math.min(baseSize, maxSizeMd));
 
   return {
-    sm: baseSize * 0.8,
+    sm: baseSize * 0.9,
     md: baseSize,
-    lg: baseSize * 1.2,
+    lg: baseSize * 1.1,
   };
 }
 
@@ -161,14 +161,14 @@ export default function Home() {
   const titleRef = useRef<HTMLDivElement>(null);
 
   const bubbleContents: BubbleData[] = [
-    { text: "1", color: "from-pink-300 via-purple-200 to-blue-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg', link: "/bubble-1" },
-    { text: "2", color: "from-blue-300 via-purple-300 to-pink-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md', link: "/bubble-2" },
-    { text: "3", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm', link: "/bubble-3" },
-    { text: "4", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/bubble-4" },
-    { text: "5", color: "from-blue-200 via-cyan-300 to-teal-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'lg', link: "/bubble-5" },
-    { text: "6", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm', link: "/bubble-6" },
-    { text: "7", color: "from-fuchsia-300 via-pink-200 to-rose-300", bgImage: "/placeholder.svg?height=200&width=200", size: 'md', link: "/bubble-7" },
-    { text: "8", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/bubble-8" },
+    { text: "Сир и мэса", color: "from-pink-300 via-purple-200 to-blue-300", size: 'lg', link: "/sir-mes" },
+    { text: "Джуниор дня", color: "from-blue-300 via-purple-300 to-pink-300", size: 'md', link: "/junior-of-the-day" },
+    { text: "План-чек", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm', link: "/plan-check" },
+    { text: "Состав профиля", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/members" },
+    { text: "Подвиг героев", color: "from-blue-200 via-cyan-300 to-teal-300", size: 'lg', link: "/heroes" },
+    { text: "Речёвка и песня", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'sm', link: "/songs" },
+    { text: "Модульные проекты", color: "from-fuchsia-300 via-pink-200 to-rose-300", size: 'md', link: "/projects" },
+    { text: "Мы новое поколение", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/new-gen" },
   ];
 
   useEffect(() => {
@@ -209,7 +209,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={mainContainerRef} className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 relative w-full overflow-hidden">
+    <div ref={mainContainerRef} className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 relative w-full">
       <BackgroundLights />
       <div className="relative z-10 flex flex-col items-center pointer-events-none">
         <div ref={titleRef} className="pointer-events-auto">
