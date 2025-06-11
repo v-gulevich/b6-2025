@@ -1,7 +1,8 @@
 export default function PlanPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 py-8 px-2">
-      <h1 className="text-4xl font-bold mb-2">🌸 11.06.25 — день 7 🌸</h1>
+      <h1 className="text-4xl font-bold mb-2">🌸 11.06.2025 🌸</h1>
+      <h1 className="text-xl font-bold mb-2">день 7</h1>
       <p className="text-lg text-gray-700 mb-8">План дня</p>
       <div className="w-full max-w-xl bg-white/70 rounded-xl shadow-lg p-4">
         <table className="w-full text-left border-separate border-spacing-y-2">
