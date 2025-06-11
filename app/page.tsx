@@ -161,7 +161,7 @@ export default function Home() {
   const titleRef = useRef<HTMLDivElement>(null);
 
   const bubbleContents: BubbleData[] = [
-    { text: "Сир и мэса", color: "from-pink-300 via-purple-200 to-blue-300", size: 'lg', link: "/sir-mes" },
+    { text: "Деятельность и настроение", color: "from-pink-300 via-purple-200 to-blue-300", size: 'lg', link: "/sir-mes" },
     { text: "Джуниор дня", color: "from-blue-300 via-purple-300 to-pink-300", size: 'md', link: "/junior-of-the-day" },
     { text: "План-чек", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'sm', link: "/plan-check" },
     { text: "Состав профиля", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/members" },
