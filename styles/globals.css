@@ -2,8 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 @layer base {
-  /* 1. DEFINE ALL VARIABLES FIRST */
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -39,7 +48,6 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -74,21 +82,13 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
 
-  /* 2. APPLY STYLES AFTER VARIABLES ARE DEFINED */
+@layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
-    /* This is the key change to prevent scrolling on all devices */
-    overflow: hidden;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }
