@@ -36,7 +36,7 @@ const BUBBLE_SIZES: Record<string, number> = {
 export default function Home() {
   return (
     <div className="bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 relative w-full min-h-screen overflow-hidden">
-      <BackgroundLights />
+      {/* <BackgroundLights /> */}
       <div className="relative z-10 flex flex-col items-center pointer-events-none">
         <div className="pointer-events-auto">
           <PageTitle />

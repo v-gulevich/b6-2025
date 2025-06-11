@@ -66,10 +66,10 @@ export default function MindBubble({
             style={{ backgroundImage: `url(${backgroundImage})`, animation: `morph-bg ${morphDuration * 0.9}s ease-in-out infinite ${animationDelay * 0.4}s`, willChange: 'border-radius' }}
           />
         )}
-        <div
+        {/* <div
           className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-white/30 opacity-70 blur-sm pointer-events-none"
           style={{ animation: `morph-inner ${morphDuration * 0.7}s ease-in-out infinite ${animationDelay * 0.6}s`, willChange: 'border-radius' }}
-        />
+        /> */}
       </div>
 
       {/* Content */}
@@ -87,14 +87,14 @@ export default function MindBubble({
       </div>
 
       {/* Floating particle (optimized: only 1 for less layout thrash) */}
-      <div
+      {/* <div
         className="absolute top-0 left-0 w-3 h-3 bg-white/60 rounded-full blur-sm pointer-events-none"
         style={{
           animation: `orbit ${morphDuration * 1.5}s linear infinite ${animationDelay}s`,
           transformOrigin: `${halfSize}px ${halfSize}px`,
           willChange: 'transform',
         }}
-      />
+      /> */}
 
       {/* Dynamic morphing styles, including dynamic orbit distances */}
       <style jsx>{`
