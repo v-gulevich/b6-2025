@@ -26,6 +26,9 @@ export default function MindBubble({
   const orbit1Distance = sizePx * 0.4;
   // Only one orbit for optimization
 
+  // Detect Android device
+  const isAndroid = typeof window !== 'undefined' && /Android/i.test(navigator.userAgent);
+
   // Unique animation durations
   const morphDuration = 8 + animationDelay * 2
   const pulseDuration = 6 + animationDelay * 1.5
@@ -40,7 +43,7 @@ export default function MindBubble({
       {/* Optimized: Single outer glow layer for performance */}
       <div
         className={`absolute inset-0 bg-gradient-to-r ${gradientColors} blur-xl scale-110 opacity-40 pointer-events-none`}
-        style={{
+        style={isAndroid ? {} : {
           animation: `morph-outer ${morphDuration}s ease-in-out infinite ${animationDelay}s`,
           willChange: 'transform, border-radius, opacity',
         }}
@@ -55,7 +58,7 @@ export default function MindBubble({
         flex items-center justify-center
         overflow-hidden
       `}
-        style={{
+        style={isAndroid ? {} : {
           animation: `morph-main ${morphDuration * 1.2}s ease-in-out infinite ${animationDelay * 0.3}s, float ${pulseDuration}s ease-in-out infinite ${animationDelay * 0.7}s`,
           willChange: 'transform, border-radius, background',
         }}
@@ -63,7 +66,7 @@ export default function MindBubble({
         {backgroundImage && (
           <div
             className="absolute inset-0 bg-cover bg-center opacity-20 blur-lg pointer-events-none"
-            style={{ backgroundImage: `url(${backgroundImage})`, animation: `morph-bg ${morphDuration * 0.9}s ease-in-out infinite ${animationDelay * 0.4}s`, willChange: 'border-radius' }}
+            style={isAndroid ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: `url(${backgroundImage})`, animation: `morph-bg ${morphDuration * 0.9}s ease-in-out infinite ${animationDelay * 0.4}s`, willChange: 'border-radius' }}
           />
         )}
         {/* <div
