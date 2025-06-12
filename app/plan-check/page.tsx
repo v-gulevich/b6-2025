@@ -1,8 +1,34 @@
+// План дня как массив объектов
+const plan = {
+  todayDate: '🌸 11.06.2025 🌸',
+  dayNumber: 'день 7',
+  timeTable: [
+    { time: '7:30', event: 'доброе утречко' },
+    { time: '8:00', event: 'вкусно завтракаем' },
+    { time: '8:35', event: 'стоим в холле 1го, идем в УЛК' },
+    { time: '9:00', event: 'жестко учимся' },
+    { time: '12:45', event: 'ждем тимлида и возвращаемся домой' },
+    { time: '13:30', event: 'что-то типо обеда' },
+    { time: '14:00', event: 'План-часик 😎' },
+    { time: '15:00', event: 'Стратагема «Ура, каникулы!»' },
+    { time: '16:00', event: 'Образовательная программа в актовом' },
+    { time: '17:00', event: 'оформляем профильное+спортик' },
+    { time: '18:30', event: 'Ужин' },
+    { time: '19:00', event: 'лекторий в актовом' },
+    { time: '21:00', event: '2ой ужин' },
+    { time: '21:30', event: 'вечерний разговор' },
+    { time: '22:00', event: 'подготовка ко сну' },
+    { time: '23:00', event: 'спокойной ночи' },
+  ]
+}
+
+
+
 export default function PlanPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 py-8 px-2">
-      <h1 className="text-4xl font-bold mb-2">🌸 11.06.2025 🌸</h1>
-      <h1 className="text-xl font-bold mb-2">день 7</h1>
+      <h1 className="text-4xl font-bold mb-2">{plan.todayDate}</h1>
+      <h1 className="text-xl font-bold mb-2">{plan.dayNumber}</h1>
       <p className="text-lg text-gray-700 mb-8">План дня</p>
       <div className="w-full max-w-xl bg-white/70 rounded-xl shadow-lg p-4">
         <table className="w-full text-left border-separate border-spacing-y-2">
@@ -13,22 +39,12 @@ export default function PlanPage() {
             </tr>
           </thead>
           <tbody>
-            <tr><td className="py-1 px-3 font-mono">7:30</td><td className="py-1 px-3">доброе утречко</td></tr>
-            <tr><td className="py-1 px-3 font-mono">8:00</td><td className="py-1 px-3">вкусно завтракаем</td></tr>
-            <tr><td className="py-1 px-3 font-mono">8:35</td><td className="py-1 px-3">стоим в холле 1го, идем в УЛК</td></tr>
-            <tr><td className="py-1 px-3 font-mono">9:00</td><td className="py-1 px-3">жестко учимся</td></tr>
-            <tr><td className="py-1 px-3 font-mono">12:45</td><td className="py-1 px-3">ждем тимлида и возвращаемся домой</td></tr>
-            <tr><td className="py-1 px-3 font-mono">13:30</td><td className="py-1 px-3">что-то типо обеда</td></tr>
-            <tr><td className="py-1 px-3 font-mono">14:00</td><td className="py-1 px-3">План-часик 😎</td></tr>
-            <tr><td className="py-1 px-3 font-mono">15:00</td><td className="py-1 px-3">Стратагема «Ура, каникулы!»</td></tr>
-            <tr><td className="py-1 px-3 font-mono">16:00</td><td className="py-1 px-3">Образовательная программа в актовом</td></tr>
-            <tr><td className="py-1 px-3 font-mono">17:00</td><td className="py-1 px-3">оформляем профильное+спортик</td></tr>
-            <tr><td className="py-1 px-3 font-mono">18:30</td><td className="py-1 px-3">Ужин</td></tr>
-            <tr><td className="py-1 px-3 font-mono">19:00</td><td className="py-1 px-3">лекторий в актовом</td></tr>
-            <tr><td className="py-1 px-3 font-mono">21:00</td><td className="py-1 px-3">2ой ужин</td></tr>
-            <tr><td className="py-1 px-3 font-mono">21:30</td><td className="py-1 px-3">вечерний разговор</td></tr>
-            <tr><td className="py-1 px-3 font-mono">22:00</td><td className="py-1 px-3">подготовка ко сну</td></tr>
-            <tr><td className="py-1 px-3 font-mono">23:00</td><td className="py-1 px-3">спокойной ночи</td></tr>
+            {plan.timeTable.map(({ time, event }) => (
+              <tr key={time + event}>
+                <td className="py-1 px-3 font-mono">{time}</td>
+                <td className="py-1 px-3">{event}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
