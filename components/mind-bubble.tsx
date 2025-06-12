@@ -50,7 +50,7 @@ export default function MindBubble({
         className={`
         relative backdrop-blur-xl bg-white/60
         shadow-xl blur-md w-full h-full
-        transition-transform transition-colors duration-500 ease-out
+        transition-transform duration-500 ease-out
         hover:scale-105 hover:bg-white/70
         flex items-center justify-center
         overflow-hidden

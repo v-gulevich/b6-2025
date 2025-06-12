@@ -71,7 +71,7 @@ export default function MembersPage() {
               className="w-24 h-24 rounded-full mb-4 object-cover border-2 border-purple-200"
             />
             <div className="text-xl font-semibold mb-1">{member.name}</div>
-            <div className="text-gray-500">Room: {member.room}</div>
+            <div className="text-gray-500">Комната: {member.room}</div>
           </div>
         ))}
       </div>
