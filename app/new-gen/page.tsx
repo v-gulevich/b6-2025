@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import '@/app/libs/consts'
+import { GalleryImages } from '@/app/libs/consts'
 
 export default function NewGenPage() {
   const [current, setCurrent] = useState(0);

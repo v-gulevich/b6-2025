@@ -1,4 +1,4 @@
-import '@/app/libs/consts'
+import { DaylyPlan } from '@/app/libs/consts'
 export default function PlanPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 py-8 px-2">

@@ -1,4 +1,4 @@
-import '@/app/libs/consts'
+import { members } from "@/app/libs/consts";
 
 export default function MembersPage() {
   return (

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import '@/app/libs/consts'
+import { TodayJunior } from '@/app/libs/consts'
 
 
 export default function JuniorPage() {

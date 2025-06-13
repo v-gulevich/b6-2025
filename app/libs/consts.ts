@@ -1,15 +1,15 @@
-interface Member{
+export interface Member{
   name: string;
   room: string;
   imageURI: string;
 }
 
-const TodayJunior = {
+export const TodayJunior = {
   name: "Володя",
   image: "/duck.webp",
 };
 
-const DaylyPlan = {
+export const DaylyPlan = {
   todayDate: '🌸 11.06.2025 🌸',
   dayNumber: 'день 7',
   timeTable: [
@@ -32,7 +32,7 @@ const DaylyPlan = {
   ]
 }
 
-const members: Member[] = [
+export const members: Member[] = [
   {
     name: "Владислав Гулевич",
     room: "301Б",
@@ -85,7 +85,7 @@ const members: Member[] = [
   },
 ];
 
-const GalleryImages = [
+export const GalleryImages = [
   { src: "/duck.webp", description: "Уточка на пруду" },
   { src: "/duck.webp", description: "Вторая уточка" },
   { src: "/duck.webp", description: "Третья уточка" },
