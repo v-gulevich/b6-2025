@@ -5,7 +5,7 @@ export default function PageTitle() {
         Техно-про
       </h1>
       <h2 className="text-4xl md:text-6xs font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">Лазерные тезнологии</h2>
-      <p className="mt-4 text-gray-600 max-w-2xl mx-auto">5.06.2025-28.06.2025</p>
+      <p className="text-gray-600 max-w-2xl mx-auto">5.06.2025-28.06.2025</p>
     </div>
   )
 }
