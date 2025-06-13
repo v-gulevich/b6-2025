@@ -143,7 +143,7 @@ export default function MindBubble({
   // Only one orbit for optimization
 
   // Detect Android device
-  const isAndroid = true; //typeof window !== 'undefined' && /Android/i.test(navigator.userAgent);
+  const isAndroid = false;//typeof window !== 'undefined' && /Android/i.test(navigator.userAgent);
 
   // Unique animation durations
   const morphDuration = 8 + animationDelay * 2;

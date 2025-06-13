@@ -34,11 +34,6 @@ export const DaylyPlan = {
 
 export const members: Member[] = [
   {
-    name: "Владислав Гулевич",
-    room: "301Б",
-    imageURI: "duck.webp",
-  },
-  {
     name: "Алексей Жуковский",
     room: "301Б",
     imageURI: "members/lexa-301B.png",
@@ -61,12 +56,17 @@ export const members: Member[] = [
   {
     name: "Алексей Праухин",
     room: "302Б",
-    imageURI: "duck.webp",
+    imageURI: "members/lexa2.png",
   },
   {
     name: "Сергей Полубок",
     room: "302А",
     imageURI: "members/serg.jpeg",
+  },
+    {
+    name: "Владислав Гулевич",
+    room: "301Б",
+    imageURI: "members/vlad.jpg",
   },
   {
     name: "Антон Зеленуха",
