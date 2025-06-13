@@ -17,13 +17,13 @@ interface BubbleData {
 // Static layout data for bubbles, with (x, y) percentage coordinates
 const bubbleContents: BubbleData[] = [
   { text: "Состав\nпрофиля", color: "from-purple-300 via-pink-200 to-orange-300", size: 'md', link: "/members", x: 20, y: 28 },
-  { text: "Подвиг\nгероев", color: "from-blue-200 via-cyan-300 to-teal-300", size: 'lg', link: "/heroes", x: 75, y: 25 },
+  // { text: "Подвиг\nгероев", color: "from-blue-200 via-cyan-300 to-teal-300", size: 'lg', link: "/heroes", x: 75, y: 25 },
   { text: "План-чек", color: "from-cyan-300 via-blue-200 to-purple-300", size: 'md', link: "/plan-check", x: 75, y: 45 },
   { text: "Деятельность и настроения", color: "from-pink-300 via-purple-200 to-blue-300", size: 'lg', link: "/sir-mes", x: 30, y: 52 },
-  { text: "Модульные\nпроекты", color: "from-fuchsia-300 via-pink-200 to-rose-300", size: 'md', link: "/projects", x: 78, y: 65 },
-  { text: "Речёвка и\nпесня", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'md', link: "/songs", x: 40, y: 70 },
+  // { text: "Модульные\nпроекты", color: "from-fuchsia-300 via-pink-200 to-rose-300", size: 'md', link: "/projects", x: 78, y: 65 },
+  // { text: "Речёвка и\nпесня", color: "from-violet-300 via-purple-200 to-fuchsia-300", size: 'md', link: "/songs", x: 40, y: 70 },
   { text: "Джуниор\nдня", color: "from-blue-300 via-purple-300 to-pink-300", size: 'md', link: "/junior-of-the-day", x: 20, y: 87 },
-  { text: "Мы новое\nпоколение", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/new-gen", x: 78, y: 88 },
+  // { text: "Мы новое\nпоколение", color: "from-indigo-300 via-blue-200 to-cyan-300", size: 'lg', link: "/new-gen", x: 78, y: 88 },
 ];
 
 // --- Static Bubble Sizing ---

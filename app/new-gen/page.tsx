@@ -1,23 +1,13 @@
 "use client";
-const images = [
-  { src: "/duck.webp", description: "Уточка на пруду" },
-  { src: "/duck.webp", description: "Вторая уточка" },
-  { src: "/duck.webp", description: "Третья уточка" },
-  { src: "/duck.webp", description: "Четвертая уточка" },
-  { src: "/duck.webp", description: "Пятая уточка" },
-  { src: "/duck.webp", description: "Шестая уточка" },
-  { src: "/duck.webp", description: "Седьмая уточка" },
-  { src: "/duck.webp", description: "Восьмая уточка" },
-];
-
 import { useState, useRef } from "react";
+import '@/app/libs/consts'
 
 export default function NewGenPage() {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [direction, setDirection] = useState<'left' | 'right' | null>(null);
   const [prev, setPrev] = useState<number | null>(null);
-  const total = images.length;
+  const total = GalleryImages.length;
   const touchStartX = useRef<number | null>(null);
 
   const startAnimation = (dir: 'left' | 'right', nextIdx: number) => {
@@ -66,8 +56,8 @@ export default function NewGenPage() {
           {/* Animate both previous and current images for smooth transition */}
           {prev !== null && (
             <img
-              src={images[prev].src}
-              alt={images[prev].description || `Gallery image ${prev + 1}`}
+              src={GalleryImages[prev].src}
+              alt={GalleryImages[prev].description || `Gallery image ${prev + 1}`}
               className={`object-contain w-full h-full absolute top-0 left-0 transition-all duration-400 ease-in-out z-0
                 ${direction === 'right' ? 'translate-x-0 opacity-100' : ''}
                 ${direction === 'left' ? 'translate-x-0 opacity-100' : ''}
@@ -79,8 +69,8 @@ export default function NewGenPage() {
             />
           )}
           <img
-            src={images[current].src}
-            alt={images[current].description || `Gallery image ${current + 1}`}
+            src={GalleryImages[current].src}
+            alt={GalleryImages[current].description || `Gallery image ${current + 1}`}
             className={`object-contain w-full h-full absolute top-0 left-0 transition-all duration-400 ease-in-out z-10
               ${!animating ? 'translate-x-0 opacity-100' : ''}
               ${animating && direction === 'right' ? 'translate-x-full opacity-0' : ''}
@@ -101,10 +91,10 @@ export default function NewGenPage() {
       </div>
       <div className="mt-4 w-full max-w-md flex flex-col items-center">
         <div className="text-base text-gray-700 bg-white/80 rounded-lg px-4 py-2 shadow border border-gray-200 w-full text-center mb-2 min-h-[2.5rem]">
-          {images[current].description}
+          {GalleryImages[current].description}
         </div>
         <div className="flex gap-1 items-center justify-center text-xs text-gray-500">
-          {images.map((_, i) => (
+          {GalleryImages.map((_, i) => (
             <span
               key={i}
               className={`w-2 h-2 rounded-full mx-0.5 ${i === current ? 'bg-purple-500' : 'bg-gray-300'}`}

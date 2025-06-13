@@ -1,9 +1,6 @@
 import Image from 'next/image';
+import '@/app/libs/consts'
 
-const todayJunior = {
-  name: "Водолаз Володя",
-  image: "/duck.webp",
-};
 
 export default function JuniorPage() {
   return (
@@ -11,12 +8,12 @@ export default function JuniorPage() {
       <h1 className="text-4xl md:text-6xs font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
         Junior Дня
       </h1>
-      <p className="mt-4 text-2xl text-gray-600 max-w-2xl mx-auto">{todayJunior.name}</p>
+      <p className="mt-4 text-2xl text-gray-600 max-w-2xl mx-auto">{TodayJunior.name}</p>
       <div className="mt-8 relative flex justify-center items-center">
         {/* Image-based glow effect */}
         <div className="absolute scale-110">
           <Image
-            src={todayJunior.image}
+            src={TodayJunior.image}
             alt=""
             className="w-64 h-64 rounded-full blur-2xl opacity-70"
             width={256}
@@ -25,7 +22,7 @@ export default function JuniorPage() {
         </div>
         <div className="absolute scale-105">
           <Image
-            src={todayJunior.image}
+            src={TodayJunior.image}
             alt=""
             className="w-64 h-64 rounded-full blur-xl opacity-80"
             width={256}
@@ -33,8 +30,8 @@ export default function JuniorPage() {
           />
         </div>
         <Image
-          src={todayJunior.image}
-          alt={todayJunior.name}
+          src={TodayJunior.image}
+          alt={TodayJunior.name}
           className="relative w-64 h-64 mx-auto shadow-lg object-cover rounded-full hover:scale-105 transition-transform duration-500"
           width={256}
           height={256}
