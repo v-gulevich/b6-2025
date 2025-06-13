@@ -31,7 +31,7 @@ export default function NewGenPage() {
         <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent text-center">
           Галерея
         </h1>
-      <div className="flex-1 w-full flex items-center justify-center relative select-none">
+      <div className="flex-1 w-full flex items-center justify-center relative select-none min-h-[300px]">
         <button
           onClick={goPrev}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white/90 rounded-full p-2 shadow-md text-2xl"
@@ -51,7 +51,7 @@ export default function NewGenPage() {
             }
             touchStartX.current = null;
           }}
-          className="w-full h-full flex items-center justify-center overflow-hidden relative"
+          className="w-full h-full flex items-center justify-center overflow-hidden relative min-h-[300px]"
         >
           {/* Animate both previous and current images for smooth transition */}
           {prev !== null && (
@@ -90,9 +90,9 @@ export default function NewGenPage() {
         </button>
       </div>
       <div className="mt-4 w-full max-w-md flex flex-col items-center">
-        <div className="text-base text-gray-700 bg-white/80 rounded-lg px-4 py-2 shadow border border-gray-200 w-full text-center mb-2 min-h-[2.5rem]">
+        {/* <div className="text-base text-gray-700 bg-white/80 rounded-lg px-4 py-2 shadow border border-gray-200 w-full text-center mb-2 min-h-[2.5rem]">
           {GalleryImages[current].description}
-        </div>
+        </div> */}
         <div className="flex gap-1 items-center justify-center text-xs text-gray-500">
           {GalleryImages.map((_, i) => (
             <span
