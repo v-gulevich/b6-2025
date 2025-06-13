@@ -1,5 +1,3 @@
-import { time } from "console";
-
 export interface Member{
   name: string;
   room: string;
@@ -8,7 +6,7 @@ export interface Member{
 
 export const TodayJunior = {
   name: "Артём Сазановец",
-  image: "members/dancer.png",
+  image: "/members/dancer.png",
 };
 
 export const DaylyPlan = {
@@ -89,14 +87,14 @@ export const members: Member[] = [
 ];
 
 export const GalleryImages = [
-  { src: "/duck.webp", description: "Уточка на пруду" },
-  { src: "/duck.webp", description: "Вторая уточка" },
-  { src: "/duck.webp", description: "Третья уточка" },
-  { src: "/duck.webp", description: "Четвертая уточка" },
-  { src: "/duck.webp", description: "Пятая уточка" },
-  { src: "/duck.webp", description: "Шестая уточка" },
-  { src: "/duck.webp", description: "Седьмая уточка" },
-  { src: "/duck.webp", description: "Восьмая уточка" },
+  { src: "/gla/1.JPG", description: "Уточка на пруду" },
+  { src: "/gla/2.JPG", description: "Вторая уточка" },
+  { src: "/gla/3.JPG", description: "Третья уточка" },
+  { src: "/gla/4.JPG", description: "Четвертая уточка" },
+  { src: "/gla/5.JPG", description: "Пятая уточка" },  
+  { src: "/gla/6.JPG", description: "Шестая уточка" },
+  { src: "/gla/7.JPG", description: "Седьмая уточка" },
+  { src: "/gla/8.JPG", description: "Восьмая уточка" },
 ];
 
 export interface Hero{
