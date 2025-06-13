@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { GalleryImages } from '@/app/libs/consts'
+import Image from "next/image";
 
 export default function NewGenPage() {
   const [current, setCurrent] = useState(0);
@@ -55,7 +56,7 @@ export default function NewGenPage() {
         >
           {/* Animate both previous and current images for smooth transition */}
           {prev !== null && (
-            <img
+            <Image
               src={GalleryImages[prev].src}
               alt={GalleryImages[prev].description || `Gallery image ${prev + 1}`}
               className={`object-contain w-full h-full absolute top-0 left-0 transition-all duration-400 ease-in-out z-0
@@ -68,7 +69,7 @@ export default function NewGenPage() {
               style={{ pointerEvents: 'none' }}
             />
           )}
-          <img
+          <Image
             src={GalleryImages[current].src}
             alt={GalleryImages[current].description || `Gallery image ${current + 1}`}
             className={`object-contain w-full h-full absolute top-0 left-0 transition-all duration-400 ease-in-out z-10

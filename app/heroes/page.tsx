@@ -1,4 +1,5 @@
 import { heroes } from "@/app/libs/consts";
+import Image from "next/image";
 
 export default function HeroesPage() {
   return (
@@ -15,7 +16,7 @@ export default function HeroesPage() {
             key={idx}
             className="flex flex-col items-center bg-white/90 rounded-2xl shadow-lg p-6 border border-purple-100 hover:scale-105 transition-transform duration-200"
           >
-            <img
+            <Image
               src={hero.imageURI}
               alt={hero.name}
               className="w-28 h-28 rounded-full mb-4 object-cover border-4 border-purple-200 shadow"

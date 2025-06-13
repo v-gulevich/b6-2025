@@ -1,4 +1,5 @@
  import { members } from "@/app/libs/consts";
+import Image from "next/image";
 
 export default function MembersPage() {
   return (
@@ -8,7 +9,7 @@ export default function MembersPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
         {members.map((member, idx) => (
           <div key={idx} className="flex flex-col items-center bg-white rounded-xl shadow-md p-6">
-            <img
+            <Image
               src={member.imageURI}
               alt={member.name}
               className="w-24 h-24 rounded-full mb-4 object-cover border-2 border-purple-200"

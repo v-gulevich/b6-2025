@@ -11,7 +11,7 @@ export default function JuniorPage() {
       <p className="mt-4 text-2xl text-gray-600 max-w-2xl mx-auto">{TodayJunior.name}</p>
       <div className="mt-8 relative flex justify-center items-center">
         {/* Image-based glow effect */}
-        <div className="absolute scale-110">
+        {/* <div className="absolute scale-110">
           <Image
             src={TodayJunior.image}
             alt=""
@@ -28,7 +28,7 @@ export default function JuniorPage() {
             width={256}
             height={256}
           />
-        </div>
+        </div> */}
         <Image
           src={TodayJunior.image}
           alt={TodayJunior.name}
