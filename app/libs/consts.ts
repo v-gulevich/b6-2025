@@ -71,7 +71,7 @@ export const members: Member[] = [
   {
     name: "Антон Зеленуха",
     room: "302А",
-    imageURI: "duck.webp",
+    imageURI: "members/anton.jpeg",
   },
   {
     name: "Владимир Ардашев",
@@ -81,7 +81,7 @@ export const members: Member[] = [
   {
     name: "Владимир Столяров",
     room: "303А",
-    imageURI: "duck.webp",
+    imageURI: "members/voloda.jpeg",
   },
 ];
 
