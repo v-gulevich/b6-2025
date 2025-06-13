@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
 import ForcePortrait from "../components/ForcePortrait";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "Board",
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <ForcePortrait />
         {children}
+        <Analytics/>
       </body>
     </html>
   );
