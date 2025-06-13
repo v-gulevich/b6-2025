@@ -41,22 +41,22 @@ export const members: Member[] = [
   {
     name: "Алексей Жуковский",
     room: "301Б",
-    imageURI: "duck.webp",
+    imageURI: "members/lexa-301B.png",
   },
   {
     name: "Артём Сазановец",
     room: "301А",
-    imageURI: "duck.webp",
+    imageURI: "members/dancer.png",
   },
   {
     name: "Ярослав Граховский",
     room: "301А",
-    imageURI: "duck.webp",
+    imageURI: "members/zharik.png",
   },
   {
     name: "Даниил Пранович",
     room: "302Б",
-    imageURI: "duck.webp",
+    imageURI: "members/daniil1.png",
   },
   {
     name: "Алексей Праухин",
@@ -66,7 +66,7 @@ export const members: Member[] = [
   {
     name: "Сергей Полубок",
     room: "302А",
-    imageURI: "duck.webp",
+    imageURI: "members/serg.jpeg",
   },
   {
     name: "Антон Зеленуха",
@@ -76,7 +76,7 @@ export const members: Member[] = [
   {
     name: "Владимир Ардашев",
     room: "303А",
-    imageURI: "duck.webp",
+    imageURI: "members/vladimir.png",
   },
   {
     name: "Владимир Столяров",
