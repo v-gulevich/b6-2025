@@ -321,7 +321,7 @@ export default function SirMesPage() {
         </div>
         
         <footer className="mt-8 text-center text-gray-500 text-sm">
-          Данные обновляются ежедневно в 9:00
+          Данные обновляются ежедневно в 21:30
         </footer>
       </div>
     </div>
